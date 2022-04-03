@@ -1,4 +1,14 @@
+using Common.Config;
+using Service;
+
 var builder = WebApplication.CreateBuilder(args);
+
+#region ≈‰÷√∂¡»°
+
+builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("Appsettings"));
+
+#endregion
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -14,6 +24,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();

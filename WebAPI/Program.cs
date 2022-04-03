@@ -1,4 +1,15 @@
+using Common.Config;
+
 var builder = WebApplication.CreateBuilder(args);
+
+#region ≈‰÷√∂¡»°
+
+builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("Appsettings"));
+
+#endregion
+
+
+
 
 // Add services to the container.
 
