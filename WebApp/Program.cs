@@ -1,5 +1,6 @@
 using Common.Config;
 using Service;
+using WebApp.SignalRChat;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("Appsettings"));
 
+//处理事件同步
+builder.Services.AddSignalR();
 #endregion
 
 
@@ -34,5 +37,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();
