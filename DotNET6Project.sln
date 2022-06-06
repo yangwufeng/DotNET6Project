@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{75F70E11-C32B-4828-A7A9-F0941B4BBE4A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServerSignalRApp", "BlazorServerSignalRApp\BlazorServerSignalRApp.csproj", "{772665A7-01D0-4D6D-851D-BF388C88E8B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{9EC9B55D-8C21-4ECF-9B5C-63E3DD344C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EC9B55D-8C21-4ECF-9B5C-63E3DD344C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EC9B55D-8C21-4ECF-9B5C-63E3DD344C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{772665A7-01D0-4D6D-851D-BF388C88E8B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{772665A7-01D0-4D6D-851D-BF388C88E8B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{772665A7-01D0-4D6D-851D-BF388C88E8B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{772665A7-01D0-4D6D-851D-BF388C88E8B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{CA93AE55-6425-4941-A403-F68B3865B592} = {3E3C8FE2-31DF-413F-929C-D749EECA68EC}
 		{8EE8E6D8-B232-4EE6-ACB4-D1156A77446C} = {993E9419-0CAA-43E6-AD34-240A741F2CED}
 		{9EC9B55D-8C21-4ECF-9B5C-63E3DD344C4F} = {3E3C8FE2-31DF-413F-929C-D749EECA68EC}
+		{772665A7-01D0-4D6D-851D-BF388C88E8B8} = {B3A45915-51ED-4AE5-98F8-0180A7E0DC03}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1BE39973-415F-411C-A7A3-48C805A89AC0}
