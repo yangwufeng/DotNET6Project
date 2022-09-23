@@ -16,7 +16,16 @@ namespace Service
     {
         public static void SyncTable()
         {
-            FreeSqlDAL.GetFreeSql().CodeFirst.SyncStructure(FreeSqlDAL.GetTypesByNameSpace());
+            try
+            {
+                FreeSqlDAL.GetFreeSql().CodeFirst.SyncStructure(FreeSqlDAL.GetTypesByNameSpace());
+
+            }
+            catch (Exception ex )
+            {
+
+                throw;
+            }
         }
 
     }

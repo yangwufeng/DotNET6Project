@@ -31,6 +31,8 @@ namespace Common.Config
         /// 
         /// </summary>
         public static RedisConnectionStrings RedisConnectionStrings { get; set; }
+        public static List<string> CorsUrls { get; set; }
+
     }
     public class LogLevel
     {

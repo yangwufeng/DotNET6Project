@@ -8,12 +8,29 @@ namespace Repository.Entities
 {
     public class User : BaseEntity
     {
+        /// <summary>
+        /// 用户编码
+        /// </summary>
+        public string Code { get; set; }
+
         public string Name { get; set; }
-        public string NameCode { get; set; }
         public string Account { get; set; }
+
         public string Password { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Email { get; set; }
+        /// <summary>
+        /// 角色
+        /// </summary>
         public string Role { get; set; }
+        /// <summary>
+        /// 登录时间
+        /// </summary>
         public DateTime LoginTime { get; set; }
+
+        public bool OnLine { get; set; }
     }
 }

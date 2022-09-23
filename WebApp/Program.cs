@@ -12,7 +12,6 @@ builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("
 builder.Services.AddSignalR();
 #endregion
 
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

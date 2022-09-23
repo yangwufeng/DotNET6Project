@@ -14,7 +14,7 @@ namespace DAL.SqlSugarOrm
         /// <summary>
         /// 静态单例处理
         /// </summary>
-        protected static SqlSugarScope DB = new SqlSugarScope(new ConnectionConfig()
+        public static SqlSugarScope DB = new SqlSugarScope(new ConnectionConfig()
         {
             ConnectionString = ConnectionStrings.SqlSugarConnectionStrings?.DBMySql,//连接符字串
             DbType = DbType.MySql,//数据库类型
