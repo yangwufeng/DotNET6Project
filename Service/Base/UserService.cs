@@ -10,8 +10,6 @@ namespace Service.Base
 {
     public class UserService : BaseService
     {
-
-
         public string GetTokenUser(string token)
         {
             try
@@ -21,8 +19,6 @@ namespace Service.Base
                 {
                     return Response.Error("未找到用户信息").ToJson();
                 }
-                user.LoginTime = DateTime.Now;
-                DB.Updateable(user).ExecuteCommand();
                 return Response.Success().ToJson();
             }
             catch (Exception ex)
@@ -49,6 +45,7 @@ namespace Service.Base
                 user.LoginTime = DateTime.Now;
                 user.Token = Guid.NewGuid().ToString();
                 DB.Updateable(user).ExecuteCommand();
+                Response.Result = user;
                 return Response.Success().ToJson();
             }
             catch (Exception ex)
@@ -72,7 +69,6 @@ namespace Service.Base
                 {
                     return Response.Error("未找到用户信息").ToJson();
                 }
-                user.LoginTime = DateTime.Now;
                 user.Token = "";
                 DB.Updateable(user).ExecuteCommand();
                 return Response.Success().ToJson();
