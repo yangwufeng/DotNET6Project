@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetTopologySuite.Index.Strtree;
 using Repository;
 using Repository.ViewModel;
 using Service;
@@ -23,6 +24,13 @@ namespace WebAPI.Controllers
             _userService = userService;
         }
 
+
+        [HttpGet]
+        public string GetTokenUser(string token)
+        {
+            return _userService.GetTokenUser(token);
+        }
+
         /// <summary>
         /// /登录接口
         /// </summary>
@@ -36,7 +44,7 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         public string OutLogin(UserModel user)
-        { 
+        {
             return _userService.OutLogin(user);
         }
     }

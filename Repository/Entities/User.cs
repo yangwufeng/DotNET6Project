@@ -32,5 +32,6 @@ namespace Repository.Entities
         /// </summary>
         public DateTime? LoginTime { get; set; }
 
+        public string?  Token { get; set; }
     }
 }
