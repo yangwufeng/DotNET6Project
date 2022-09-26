@@ -63,14 +63,18 @@ namespace Service.Base
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public string OutLogin(UserModel user)
+        public string OutLogin(UserModel model)
         {
             try
             {
-                if (!DB.Queryable<User>().Any(t => t.Name == user.Account && t.Password == user.Password))
+                var user = DB.Queryable<User>().First(t => t.Name == model.Account && t.Password == model.Password);
+                if (user == null)
                 {
                     return Response.Error("未找到用户信息").ToJson();
                 }
+                user.LoginTime = DateTime.Now;
+                user.Token = "";
+                DB.Updateable(user).ExecuteCommand();
                 return Response.Success().ToJson();
             }
             catch (Exception ex)
