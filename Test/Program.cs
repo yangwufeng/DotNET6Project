@@ -7,7 +7,7 @@ try
 {
     #region 数据库同步
 
-    SyncStructureSevice.SyncTable();
+    SyncStructureSevice.FreeSqlSyncTable();
 
     #endregion
 

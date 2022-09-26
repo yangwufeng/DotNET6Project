@@ -53,7 +53,7 @@ namespace DAL.FreeSqlOrm
             try
             {
                 List<Type> tableAssembies = new List<Type>();
-                foreach (Type type in Assembly.GetAssembly(typeof(BaseEntity)).GetExportedTypes())
+                foreach (Type type in Assembly.GetAssembly(typeof(BaseKeyEntity<>)).GetExportedTypes())
                     foreach (Attribute attribute in type.GetCustomAttributes())
                         if (attribute is TableAttribute tableAttribute)
                             if (tableAttribute.DisableSyncStructure == false)
@@ -71,14 +71,14 @@ namespace DAL.FreeSqlOrm
             List<Type> tableAssembies = new List<Type>();
             List<string> entitiesFullName = new List<string>()
     {
-        "Repository.Entity",
+        "Repository.Entities",
     };
-            foreach (Type type in Assembly.GetAssembly(typeof(BaseEntity)).GetExportedTypes())
+            foreach (Type type in Assembly.GetAssembly(typeof(BaseKeyEntity<>)).GetExportedTypes())
                 foreach (var fullname in entitiesFullName)
                     if (type.FullName.StartsWith(fullname) && type.IsClass)
                         tableAssembies.Add(type);
+            return tableAssembies.Where(t => t.Name != "BaseKeyEntity`1" && t.Name != "BaseEntity`1").ToArray();
 
-            return tableAssembies.ToArray();
         }
 
 

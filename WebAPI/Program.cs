@@ -34,26 +34,42 @@ builder.Configuration.GetSection("Appsettings").Get<ConnectionStrings>();
 
 #region 配置跨域
 
-builder.WebHost.UseKestrel(options =>
-{
-    ////跨域
-    //options.AddServerHeader = false;
-
-    //http
-    options.Listen(IPAddress.Any, 9527);
-});
-
-//builder.Services.AddCors(cor =>
+//builder.WebHost.UseKestrel(options =>
 //{
-//    var cors = ConnectionStrings.CorsUrls.ToArray();
-//    cor.AddPolicy("Cors", policy =>
+//    ////跨域
+//    //options.AddServerHeader = false;
+
+//    //http
+//    options.Listen(IPAddress.Any, 9527);
+//});
+
+//允许一个或多个来源可以跨域
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("Cors", policy =>
 //    {
-//        policy.WithOrigins(cors.ToArray())
+//        // 设定允许跨域的来源，有多个可以用','隔开
+//        policy.WithOrigins("http://localhost:21632")
 //        .AllowAnyHeader()
 //        .AllowAnyMethod()
 //        .AllowCredentials();
 //    });
 //});
+
+builder.Services.AddCors(cor =>
+{
+    var cors = ConnectionStrings.CorsUrls.ToArray();
+    cor.AddPolicy("Cors", policy =>
+    {
+        policy.WithOrigins(cors.ToArray())
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
+    });
+    //配置ip一种方法
+    //builder.WebHost.UseUrls("http://*:9527");
+
+});
 
 #endregion
 
@@ -63,7 +79,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.WebHost.UseUrls("http://*:9527");
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -72,10 +87,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseHttpsRedirection();
-//app.UseCors("Cors");
+//设置跨域需要注释当前下面代码
+//app.UseHttpsRedirection();
+app.UseCors("Cors");
 app.UseAuthorization();
 app.MapControllers();
-SyncStructureSevice.SyncTable();
-app.Run();
+SyncStructureSevice.SqlSugarDALSyncTable();
+app.Run("http://*:9527");
 

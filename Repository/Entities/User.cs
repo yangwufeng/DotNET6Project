@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Entities
 {
-    public class User : BaseEntity
+    public class User : BaseEntity<long>
     {
         /// <summary>
         /// 用户编码
@@ -21,16 +21,16 @@ namespace Repository.Entities
         /// <summary>
         /// 
         /// </summary>
-        public string Email { get; set; }
+        public string? Email { get; set; }
+
         /// <summary>
         /// 角色
         /// </summary>
-        public string Role { get; set; }
+        public string? Role { get; set; }
         /// <summary>
         /// 登录时间
         /// </summary>
-        public DateTime LoginTime { get; set; }
+        public DateTime? LoginTime { get; set; }
 
-        public bool OnLine { get; set; }
     }
 }

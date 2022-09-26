@@ -67,7 +67,7 @@ namespace Repository.ViewModel
             return this;
         }
 
-        public string Serialize()
+        public string ToJson()
         {
             return JsonHelper.Instance.Serialize(this);
         }

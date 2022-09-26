@@ -15,30 +15,29 @@ namespace Service.Base
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public string CheckUser(UserModel user)
+        public string CheckUser(UserModel model)
         {
-            return Response.Success().Serialize();
-
             try
             {
-                if (!DB.Queryable<User>().Any(t => t.Name == user.Account && t.Password == user.Password))
+                var user = DB.Queryable<User>().First(t => t.Name == model.Account && t.Password == model.Password);
+                if (user == null)
                 {
-                    return Response.Error("未找到用户信息").Serialize();
+                    return Response.Error("未找到用户信息").ToJson();
                 }
-
-                //DB.Updateable<User>(t => t.id) user.Account
-                return Response.Success().Serialize();
+                user.LoginTime = DateTime.Now;
+                DB.Updateable(user); 
+                return Response.Success().ToJson();
             }
             catch (Exception ex)
             {
-                return Response.Error("未找到用户信息" + ex.Message).Serialize();
+                return Response.Error("登录接口出现异常" + ex.Message).ToJson();
             }
         }
 
 
 
         /// <summary>
-        /// 检测用户是否存在
+        /// 退出登录
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
@@ -48,13 +47,13 @@ namespace Service.Base
             {
                 if (!DB.Queryable<User>().Any(t => t.Name == user.Account && t.Password == user.Password))
                 {
-                    return Response.Error("未找到用户信息").Serialize();
+                    return Response.Error("未找到用户信息").ToJson();
                 }
-                return Response.Success().Serialize();
+                return Response.Success().ToJson();
             }
             catch (Exception ex)
             {
-                return Response.Error("未找到用户信息" + ex.Message).Serialize();
+                return Response.Error("未找到用户信息" + ex.Message).ToJson();
             }
         }
     }
