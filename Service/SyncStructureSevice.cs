@@ -1,5 +1,4 @@
-﻿using DAL.FreeSqlOrm;
-using DAL.SqlSugarOrm;
+﻿using Repository.DAL;
 using Repository.Entities;
 using System;
 using System.Collections.Generic;

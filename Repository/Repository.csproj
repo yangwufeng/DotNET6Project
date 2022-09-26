@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,11 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="EntitiesDto\" />
-    <Folder Include="APIEntities\" />
+    <Compile Remove="APIEntities\**" />
+    <EmbeddedResource Remove="APIEntities\**" />
+    <None Remove="APIEntities\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="EntitiesDto\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CSRedisCore" Version="3.6.9" />
+    <PackageReference Include="FreeSql.All" Version="3.2.680" />
     <PackageReference Include="SqlSugarCore" Version="5.1.3.21" />
   </ItemGroup>
 

@@ -38,7 +38,6 @@ namespace WebAPI.Controllers
         public string OutLogin(UserModel user)
         { 
             return _userService.OutLogin(user);
-
         }
     }
 }

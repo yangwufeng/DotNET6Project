@@ -1,6 +1,6 @@
 ﻿//See https://aka.ms/new-console-template for more information
 
-using DAL.Redis;
+using Repository.DAL;
 using Service;
 
 try

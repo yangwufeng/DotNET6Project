@@ -1,5 +1,5 @@
 ﻿using Common;
-using DAL.SqlSugarOrm;
+using Repository.DAL;
 using Repository.ViewModel;
 using SqlSugar;
 using System;

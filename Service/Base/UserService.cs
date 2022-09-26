@@ -25,7 +25,7 @@ namespace Service.Base
                     return Response.Error("未找到用户信息").ToJson();
                 }
                 user.LoginTime = DateTime.Now;
-                DB.Updateable(user); 
+                DB.Updateable(user).ExecuteCommand();
                 return Response.Success().ToJson();
             }
             catch (Exception ex)
