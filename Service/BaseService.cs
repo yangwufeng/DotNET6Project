@@ -12,7 +12,9 @@ namespace Service
 {
     public abstract class BaseService
     {
-        protected SqlSugarScope DB = SqlSugarDAL.DB;
+        protected SqlSugarScope SqlSugarDB = SqlSugarDAL.DB;
+
+        protected IFreeSql DB = FreeSqlDAL.DB;
         public Response Response { get; set; } = new Response();
 
     }

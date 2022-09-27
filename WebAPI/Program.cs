@@ -92,6 +92,6 @@ if (app.Environment.IsDevelopment())
 app.UseCors("Cors");
 app.UseAuthorization();
 app.MapControllers();
-SyncStructureSevice.SqlSugarDALSyncTable();
+SyncStructureSevice.FreeSqlSyncTable();
 app.Run("http://*:9527");
 

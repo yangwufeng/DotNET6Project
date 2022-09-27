@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static FreeSql.Internal.GlobalFilter;
 
 namespace Service.Base
 {
@@ -14,7 +15,7 @@ namespace Service.Base
         {
             try
             {
-                var user = DB.Queryable<User>().First(t => t.Token == token);
+                var user = DB.Select<User>().Where(t => t.Token == token).First();
                 if (user == null)
                 {
                     return Response.Error("未找到用户信息").ToJson();
@@ -37,14 +38,14 @@ namespace Service.Base
         {
             try
             {
-                var user = DB.Queryable<User>().First(t => t.Name == model.Account && t.Password == model.Password);
+                var user = DB.Select<User>().Where(t => t.Name == model.Account && t.Password == model.Password).First();
                 if (user == null)
                 {
                     return Response.Error("未找到用户信息").ToJson();
                 }
                 user.LoginTime = DateTime.Now;
                 user.Token = Guid.NewGuid().ToString();
-                DB.Updateable(user).ExecuteCommand();
+                DB.Update<User>().SetSource(user).ExecuteAffrows();
                 Response.Result = user;
                 return Response.Success().ToJson();
             }
@@ -64,13 +65,13 @@ namespace Service.Base
         {
             try
             {
-                var user = DB.Queryable<User>().First(t => t.Name == model.Account && t.Password == model.Password);
+                var user = DB.Select<User>().Where(t => t.Name == model.Account && t.Password == model.Password).ToOne();
                 if (user == null)
                 {
                     return Response.Error("未找到用户信息").ToJson();
                 }
                 user.Token = "";
-                DB.Updateable(user).ExecuteCommand();
+                DB.Update<User>(user);
                 return Response.Success().ToJson();
             }
             catch (Exception ex)

@@ -21,13 +21,13 @@ namespace Service
             {
                 FreeSqlDAL.GetFreeSql().CodeFirst.SyncStructure(FreeSqlDAL.GetTypesByNameSpace());
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
-                throw;
+                Console.WriteLine(ex.Message);
             }
         }
 
-        public static void SqlSugarDALSyncTable()
+        public static void SqlSugarSyncTable()
         {
             try
             {
@@ -45,14 +45,13 @@ namespace Service
             .Where(it => it.FullName.Contains("Repository.Entities."))//命名空间过滤，当然你也可以写其他条件过滤
             .ToArray();
                 //排除实体基类
-                types= types.Where(t => t.Name != "BaseKeyEntity`1" && t.Name != "BaseEntity`1").ToArray();
-            SqlSugarDAL.DB.CodeFirst.SetStringDefaultLength(200).InitTables(types);
+                types = types.Where(t => t.Name != "BaseKeyEntity`1" && t.Name != "BaseEntity`1").ToArray();
+                SqlSugarDAL.DB.CodeFirst.SetStringDefaultLength(200).InitTables(types);
 
             }
             catch (Exception ex)
             {
-
-                throw;
+                Console.WriteLine(ex.Message);
             }
         }
 

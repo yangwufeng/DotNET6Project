@@ -1,4 +1,5 @@
 ﻿using Common.Config;
+using FreeSql.Aop;
 using FreeSql.DataAnnotations;
 using Repository.Entities;
 using System;
@@ -33,6 +34,8 @@ namespace Repository.DAL
                 .UseConnectionString(FreeSql.DataType.MySql, ConnectionStrings.FreeSqlConnectionStrings.DBMySql)
                 .UseAutoSyncStructure(true) //自动同步实体结构到数据库，FreeSql不会扫描程序集，只有CRUD时才会生成表。
                 .Build(); //请务必定义成 Singleton 单例模式
+                        DB.Aop.AuditValue += Aop_AuditValue;
+                        DB.Aop.CurdAfter += Aop_CurdAfter;
                     }
                     return DB;
                 }
@@ -40,31 +43,76 @@ namespace Repository.DAL
             return DB;
         }
 
+
+        /// <summary>
+        /// 记录超时Sql
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void Aop_CurdAfter(object sender, CurdAfterEventArgs e)
+        {
+            Console.WriteLine($"SQL语句：{e.Sql}");
+        }
+
+        /// <summary>
+        /// 插入更新时，自动赋值created和updated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void Aop_AuditValue(object sender, AuditValueEventArgs e)
+        {
+            if (e.AuditValueType == AuditValueType.Insert)
+            {
+                if (e.Property.Name == "Created")
+                {
+                    e.Value = DateTime.Now;
+                }
+            }
+            if (e.AuditValueType == AuditValueType.Update)
+            {
+                if (e.Property.Name == "Updated")
+                {
+                    e.Value = DateTime.Now;
+                }
+            }
+            if (e.AuditValueType == AuditValueType.InsertOrUpdate)
+            {
+                if (e.Property.Name == "Created" && e.Value == null)
+                {
+                    e.Value = DateTime.Now;
+                }
+                if (e.Property.Name == "Updated")
+                {
+                    e.Value = DateTime.Now;
+                }
+            }
+        }
+
         /// <summary>
         /// 静态单列
         /// </summary>
-        public static IFreeSql Db => new FreeSql.FreeSqlBuilder().UseConnectionString(FreeSql.DataType.MySql, ConnectionStrings.FreeSqlConnectionStrings.DBMySql)
-                  .UseAutoSyncStructure(true) //自动同步实体结构到数据库，FreeSql不会扫描程序集，只有CRUD时才会生成表。
-                  .Build();
+        //public static IFreeSql Db => new FreeSql.FreeSqlBuilder().UseConnectionString(FreeSql.DataType.MySql, ConnectionStrings.FreeSqlConnectionStrings.DBMySql)
+        //          .UseAutoSyncStructure(true) //自动同步实体结构到数据库，FreeSql不会扫描程序集，只有CRUD时才会生成表。
+        //          .Build();
 
-        public static Type[] GetTypesByTableAttribute()
-        {
-            try
-            {
-                List<Type> tableAssembies = new List<Type>();
-                foreach (Type type in Assembly.GetAssembly(typeof(BaseKeyEntity<>)).GetExportedTypes())
-                    foreach (Attribute attribute in type.GetCustomAttributes())
-                        if (attribute is TableAttribute tableAttribute)
-                            if (tableAttribute.DisableSyncStructure == false)
-                                tableAssembies.Add(type);
-                return tableAssembies.ToArray();
+        //public static Type[] GetTypesByTableAttribute()
+        //{
+        //    try
+        //    {
+        //        List<Type> tableAssembies = new List<Type>();
+        //        foreach (Type type in Assembly.GetAssembly(typeof(BaseKeyEntity<>)).GetExportedTypes())
+        //            foreach (Attribute attribute in type.GetCustomAttributes())
+        //                if (attribute is TableAttribute tableAttribute)
+        //                    if (tableAttribute.DisableSyncStructure == false)
+        //                        tableAssembies.Add(type);
+        //        return tableAssembies.ToArray();
 
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
         public static Type[] GetTypesByNameSpace()
         {
             List<Type> tableAssembies = new List<Type>();
@@ -79,9 +127,6 @@ namespace Repository.DAL
             return tableAssembies.Where(t => t.Name != "BaseKeyEntity`1" && t.Name != "BaseEntity`1").ToArray();
 
         }
-
-
-
     }
 }
 

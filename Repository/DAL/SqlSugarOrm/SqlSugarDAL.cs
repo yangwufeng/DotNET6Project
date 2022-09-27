@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Repository.DAL
 {
+    /// <summary>
+    /// 同步表结构 不是很好用  
+    /// </summary>
     public class SqlSugarDAL
     {
         /// <summary>

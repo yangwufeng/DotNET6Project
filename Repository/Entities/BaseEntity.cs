@@ -16,15 +16,19 @@ namespace Repository.Entities
         /// <summary>
         /// 创建时间
         /// </summary>
+        [Column(Order = 40)]
         public DateTime? Created { get; set; }
 
+        [Column(Order = 41)]
         public string? CreatedBy { get; set; }
 
         /// <summary>
         /// 对于更新时间，不自动写入，允许为null
         /// </summary>
+        [Column(Order = 42)]
         public DateTime? Updated { get; set; }
 
+        [Column(Order = 43)]
         public string? UpdatedBy { get; set; }
 
     }
